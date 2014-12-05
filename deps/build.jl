@@ -7,7 +7,7 @@ provides(AptGet,Dict("libopenblas-dev" => libblas))
 
 # CFITSIO
 libcfitsio = library_dependency("libcfitsio")
-provides(AptGet,Dict("libcfitsio-dev" => libcfitsio))
+provides(AptGet,Dict("libcfitsio3-dev" => libcfitsio))
 
 version = "3.37.0"
 url = "ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio$(replace(version,'.',"")).tar.gz"
