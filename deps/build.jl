@@ -4,8 +4,7 @@ using BinDeps
 version = "1.7.0"
 url = "ftp://ftp.atnf.csiro.au/pub/software/casacore/casacore-$version.tar.bz2"
 
-libopenblas = library_dependency("libopenblas")
-liblapack   = library_dependency("liblapack")
+libopenblas = library_dependency("libblas")
 
 libcasa_tables     = library_dependency("libcasa_tables")
 libcasa_measures   = library_dependency("libcasa_measures")
