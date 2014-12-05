@@ -30,6 +30,9 @@ provides(BuildProcess,
                 end
         end),libcfitsio)
 
+# WCSLIB
+libwcs = library_dependency("libwcs")
+provides(AptGet,Dict("wcslib-dev" => libwcs))
 
 # CasaCore
 libcasa_tables     = library_dependency("libcasa_tables")
