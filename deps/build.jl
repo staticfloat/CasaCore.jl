@@ -4,15 +4,11 @@ using BinDeps
 version = "1.7.0"
 url = "ftp://ftp.atnf.csiro.au/pub/software/casacore/casacore-$version.tar.bz2"
 
-libopenblas        = library_dependency("libopenblas")
-liblapack          = library_dependency("liblapack")
 libcasa_tables     = library_dependency("libcasa_tables")
 libcasa_measures   = library_dependency("libcasa_measures")
 libcasacorewrapper = library_dependency("libcasacorewrapper")
 casacore_libraries = [libcasa_tables,libcasa_measures]
 all_libraries = [casacore_libraries, libcasacorewrapper]
-
-provides(AptGet,Dict("openblas" => libopenblas,"lapack" => liblapack))
 
 depsdir  = BinDeps.depsdir(libcasacorewrapper)
 prefix   = joinpath(depsdir,"usr")
@@ -30,6 +26,7 @@ provides(BuildProcess,
                 @build_steps begin
                         ChangeDirectory(builddir)
                         FileRule(files,@build_steps begin
+                                `locate libopenblas.so`
                                 `cmake -DCMAKE_INSTALL_PREFIX="$prefix" $srcdir`
                                 `make`
                                 `make install`
