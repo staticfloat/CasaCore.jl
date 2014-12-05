@@ -7,6 +7,7 @@ provides(AptGet,Dict("libopenblas-dev" => libblas))
 
 # CFITSIO
 libcfitsio = library_dependency("libcfitsio")
+provides(AptGet,Dict("libcfitsio3" => libcfitsio))
 
 version = "3.37.0"
 url = "ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio$(replace(version,'.',"")).tar.gz"
@@ -22,7 +23,8 @@ provides(BuildProcess,
                         ChangeDirectory(srcdir)
                         FileRule(joinpath(prefix,"lib","libfitsio.so"),@build_steps begin
                                 `./configure --prefix=$prefix`
-                                `make shared install`
+                                `make shared`
+                                `make install`
                         end)
                 end
         end),libcfitsio)
