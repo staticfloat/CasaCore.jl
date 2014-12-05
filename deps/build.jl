@@ -2,18 +2,18 @@ using BinDeps
 @BinDeps.setup
 
 # OpenBLAS
-libopenblas = library_dependency("libblas")
-provides(AptGet,Dict("libopenblas-dev" => libopenblas))
+libblas = library_dependency("libblas",aliases=["libopenblas"])
+provides(AptGet,Dict("libopenblas-dev" => libblas))
 
 # CFITSIO
 libcfitsio = library_dependency("libcfitsio")
 
 version = "3.37.0"
 url = "ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio$(replace(version,'.',"")).tar.gz"
-provides(Sources, URI(url), libcfitsio, unpacked_dir="libcfitsio-$version")
+provides(Sources, URI(url), libcfitsio, unpacked_dir="cfitsio")
 
-depsdir = BinDeps.depsdir(libcasacorewrapper)
-srcdir  = joinpath(depsdir,"src", "libfitsio-$version")
+depsdir = BinDeps.depsdir(libcfitsio)
+srcdir  = joinpath(depsdir,"src", "cfitsio")
 prefix  = joinpath(depsdir,"usr")
 provides(BuildProcess,
         (@build_steps begin
@@ -22,8 +22,7 @@ provides(BuildProcess,
                         ChangeDirectory(srcdir)
                         FileRule(joinpath(prefix,"lib","libfitsio.so"),@build_steps begin
                                 `./configure --prefix=$prefix`
-                                `make shared`
-                                `make install`
+                                `make shared install`
                         end)
                 end
         end),libcfitsio)
@@ -38,7 +37,7 @@ version = "1.7.0"
 url = "ftp://ftp.atnf.csiro.au/pub/software/casacore/casacore-$version.tar.bz2"
 provides(Sources, URI(url), casacore_libraries, unpacked_dir="casacore-$version")
 
-depsdir  = BinDeps.depsdir(libcasacorewrapper)
+depsdir  = BinDeps.depsdir(libcasa_tables)
 srcdir   = joinpath(depsdir,"src",   "casacore-$version")
 builddir = joinpath(depsdir,"builds","casacore-$version")
 prefix   = joinpath(depsdir,"usr")
