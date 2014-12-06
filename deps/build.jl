@@ -6,8 +6,8 @@ libblas = library_dependency("libblas",aliases=["libopenblas"])
 provides(AptGet,Dict("libopenblas-dev" => libblas))
 
 # CasaCore
-libcasa_tables     = library_dependency("libcasa_tables_poop")
-libcasa_measures   = library_dependency("libcasa_measures_poop")
+libcasa_tables     = library_dependency("libcasa_tables")
+libcasa_measures   = library_dependency("libcasa_measures")
 casacore_libraries = [libcasa_tables,libcasa_measures]
 
 version = "1.7.0"
@@ -27,7 +27,7 @@ provides(BuildProcess,
                 @build_steps begin
                         ChangeDirectory(builddir)
                         FileRule(files,@build_steps begin
-                                `cmake -DMODULE="tables" -DMODULE="measures" -DCMAKE_INSTALL_PREFIX="$prefix" $srcdir`
+                                `cmake -DMODULE="tables,measures" -DCMAKE_INSTALL_PREFIX="$prefix" -DCMAKE_CXX_FLAGS="-w" $srcdir`
                                 `make`
                                 `make install`
                         end)
