@@ -5,38 +5,9 @@ using BinDeps
 libblas = library_dependency("libblas",aliases=["libopenblas"])
 provides(AptGet,Dict("libopenblas-dev" => libblas))
 
-# CFITSIO
-libcfitsio = library_dependency("libcfitsio")
-provides(AptGet,Dict("libcfitsio3-dev" => libcfitsio))
-
-version = "3.37.0"
-url = "ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/cfitsio$(replace(version,'.',"")).tar.gz"
-provides(Sources, URI(url), libcfitsio, unpacked_dir="cfitsio")
-
-depsdir = BinDeps.depsdir(libcfitsio)
-srcdir  = joinpath(depsdir,"src", "cfitsio")
-prefix  = joinpath(depsdir,"usr")
-provides(BuildProcess,
-        (@build_steps begin
-                GetSources(libcfitsio)
-                @build_steps begin
-                        ChangeDirectory(srcdir)
-                        FileRule(joinpath(prefix,"lib","libfitsio.so"),@build_steps begin
-                                `./configure --prefix=$prefix`
-                                `make`
-                                `make shared`
-                                `make install`
-                        end)
-                end
-        end),libcfitsio)
-
-# WCSLIB
-libwcs = library_dependency("libwcs")
-provides(AptGet,Dict("wcslib-dev" => libwcs))
-
 # CasaCore
-libcasa_tables     = library_dependency("libcasa_tables")
-libcasa_measures   = library_dependency("libcasa_measures")
+libcasa_tables     = library_dependency("libcasa_tables_poop")
+libcasa_measures   = library_dependency("libcasa_measures_poop")
 casacore_libraries = [libcasa_tables,libcasa_measures]
 
 version = "1.7.0"
@@ -56,7 +27,7 @@ provides(BuildProcess,
                 @build_steps begin
                         ChangeDirectory(builddir)
                         FileRule(files,@build_steps begin
-                                `cmake -DCMAKE_INSTALL_PREFIX="$prefix" $srcdir`
+                                `cmake -DMODULE="tables" -DMODULE="measures" -DCMAKE_INSTALL_PREFIX="$prefix" $srcdir`
                                 `make`
                                 `make install`
                         end)
