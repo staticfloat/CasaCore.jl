@@ -27,7 +27,7 @@ provides(BuildProcess,
                 @build_steps begin
                         ChangeDirectory(builddir)
                         FileRule(files,@build_steps begin
-                                `cmake -DMODULE="tables,measures" -DCMAKE_INSTALL_PREFIX="$prefix" -DCMAKE_CXX_FLAGS="-w" $srcdir`
+                                `cmake -DMODULE="tables" -DMODULE="measures" -DCMAKE_INSTALL_PREFIX="$prefix" -DCMAKE_CXX_FLAGS="-w" $srcdir`
                                 `make`
                                 `make install`
                         end)
