@@ -6,7 +6,6 @@ blas = library_dependency("libblas",aliases=["libopenblas"])
 provides(AptGet,Dict("libopenblas-dev" => blas))
 
 # CasaCore
-#=
 casa_tables     = library_dependency("libcasa_tables")
 casa_measures   = library_dependency("libcasa_measures")
 casacore_libraries = [casa_tables,casa_measures]
@@ -34,7 +33,6 @@ provides(BuildProcess,
                         end)
                 end
         end),casacore_libraries)
-=#
 
 # CasaCore Wrapper
 casacorewrapper = library_dependency("libcasacorewrapper")
@@ -60,6 +58,5 @@ provides(BuildProcess,
                 end
         end),[casacorewrapper])
 
-#@BinDeps.install Dict(:libcasacorewrapper => :libcasacorewrapper)
 @BinDeps.install
 

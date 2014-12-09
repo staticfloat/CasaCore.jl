@@ -12,7 +12,6 @@ export measure,observatory
 
 # TODO: Check to make sure this file exists
 const libcasacorewrapper = "../deps/usr/lib/libcasacorewrapper.so"
-#include("../deps/deps.jl")
 
 include("conversions.jl")
 include("containers.jl")
