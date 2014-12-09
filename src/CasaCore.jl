@@ -11,7 +11,8 @@ export Measure,Quantity
 export measure,observatory
 
 # TODO: Check to make sure this file exists
-include("../deps/deps.jl")
+const libcasacorewrapper = "../deps/usr/lib/libcasacorewrapper.so"
+#include("../deps/deps.jl")
 
 include("conversions.jl")
 include("containers.jl")
