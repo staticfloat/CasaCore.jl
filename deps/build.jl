@@ -41,16 +41,16 @@ version = "1.7.0"
 url = "ftp://ftp.atnf.csiro.au/pub/software/casacore/casacore-$version.tar.bz2"
 provides(Sources, URI(url), casacorewrapper, unpacked_dir="casacore-$version")
 
-srcdir   = joinpath(depsdir,"src",   "casacore-$version")
 builddir = joinpath(depsdir,"builds","casacorewrapper")
 prefix   = joinpath(depsdir,"usr")
+files    = [joinpath(prefix,"lib","casacorewrapper.so")]
 provides(BuildProcess,
         (@build_steps begin
                 GetSources(casacorewrapper)
                 CreateDirectory(builddir)
                 @build_steps begin
                         ChangeDirectory(builddir)
-                        FileRule(joinpath(prefix,"lib","libcasacorewrapper.so"),@build_steps begin
+                        FileRule(files,@build_steps begin
                                 `make`
                                 `make install`
                                 `ls $(joinpath(prefix,"lib"))`
