@@ -43,7 +43,7 @@ provides(Sources, URI(url), casacorewrapper, unpacked_dir="casacore-$version")
 
 builddir = joinpath(depsdir,"builds","casacorewrapper")
 prefix   = joinpath(depsdir,"usr")
-files    = [joinpath(prefix,"lib","casacorewrapper.so")]
+files    = [joinpath(prefix,"lib","libcasacorewrapper.so")]
 provides(BuildProcess,
         (@build_steps begin
                 GetSources(casacorewrapper)
@@ -53,7 +53,6 @@ provides(BuildProcess,
                         FileRule(files,@build_steps begin
                                 `make`
                                 `make install`
-                                `ls $(joinpath(prefix,"lib"))`
                         end)
                 end
         end),casacorewrapper)
