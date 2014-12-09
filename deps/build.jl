@@ -55,7 +55,7 @@ provides(BuildProcess,
                                 `make install`
                         end)
                 end
-        end),casacorewrapper)
+        end),[casacorewrapper])
 
 @BinDeps.install Dict(:libcasacorewrapper => :libcasacorewrapper)
 
