@@ -17,5 +17,5 @@ before_install:
 script:
   - julia --check-bounds=yes -e 'versioninfo(); Pkg.init(); Pkg.clone(pwd()); Pkg.build("CasaCore"); using BinDeps; BinDeps.debug("CasaCore"); println(DL_LOAD_PATH); Pkg.test("CasaCore")'
   - julia -e 'dlopen("~/.julia/v0.4/CasaCore/deps/usr/lib/libcasacorewrapper.so")'
-  - ls -la /.julia/v0.4/CasaCore/deps/usr/lib/libcasa*.so
+  - ls -la /.julia/v0.4/CasaCore/deps/usr/lib/
   - julia -e 'dlopen("~/.julia/v0.4/CasaCore/deps/usr/lib/libcasa_tables.so")'
