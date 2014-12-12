@@ -16,6 +16,6 @@ before_install:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
 script:
   - julia --check-bounds=yes -e 'versioninfo(); Pkg.init(); Pkg.clone(pwd()); Pkg.build("CasaCore"); using BinDeps; BinDeps.debug("CasaCore"); println(DL_LOAD_PATH); Pkg.test("CasaCore")'
-  - julia -e 'Pkg.dir("CasaCore",dlopen("/home/travis/.julia/v0.4/CasaCore/deps/usr/lib/libcasacorewrapper.so")'
+  - julia -e 'dlopen("/home/travis/.julia/v0.4/CasaCore/deps/usr/lib/libcasacorewrapper.so")'
   - ls -la /home/travis/.julia/v0.4/CasaCore/deps/usr/lib/
   - julia -e 'dlopen("/home/travis/.julia/v0.4/CasaCore/deps/usr/lib/libcasa_tables.so")'
