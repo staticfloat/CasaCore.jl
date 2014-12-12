@@ -19,4 +19,5 @@ script:
   - julia -e 'dlopen("/home/travis/.julia/v0.4/CasaCore/deps/usr/lib/libcasacorewrapper.so")'
   - ls -la /home/travis/.julia/v0.4/CasaCore/deps/usr/lib/
   - ldd /home/travis/.julia/v0.4/CasaCore/deps/usr/lib/libcasacorewrapper.so
+  - readelf -d /home/travis/.julia/v0.4/CasaCore/deps/usr/lib/libcasacorewrapper.so
   - julia -e 'dlopen("/home/travis/.julia/v0.4/CasaCore/deps/usr/lib/libcasa_tables.so")'
